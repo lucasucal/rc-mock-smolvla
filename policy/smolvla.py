@@ -1,7 +1,7 @@
 """SmolVLA (LeRobot 0.7.0) behind the Reality Check contract v0 Policy class.
 
 Loads the fine-tuned SmolVLA checkpoint mounted read-only at /weights
-(https://huggingface.co/goku/rc-mock-smolvla-ft). For local development only, set
+(https://huggingface.co/lucaslim/rc-mock-smolvla-ft). For local development only, set
 RC_ALLOW_BASE_MODEL_FALLBACK=1 to download the public base model instead.
 
 Maps wrist/left/right cameras to SmolVLA image slots, passes the instruction and joint
