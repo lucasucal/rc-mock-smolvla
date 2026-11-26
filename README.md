@@ -3,7 +3,7 @@
 Reality Check (contract v0) submission wrapping LeRobot SmolVLA (`lerobot==0.7.0`).
 
 - Entry point: `policy.smolvla:SmolVLAPolicy` (see `manifest.json`)
-- Model (public, ungated): https://huggingface.co/goku/rc-mock-smolvla-ft — mounted at `/weights`
+- Model (public, ungated): https://huggingface.co/lucaslim/rc-mock-smolvla-ft — mounted at `/weights`
 - Self-test: `python3 scripts/selftest.py` (ends with `ALL PASS`)
 
 Local smoke run without weights (development only):
