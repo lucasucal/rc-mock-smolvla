@@ -1,7 +1,8 @@
 """SmolVLA (LeRobot 0.7.0) behind the Reality Check contract v0 Policy class.
 
 Loads the fine-tuned SmolVLA checkpoint mounted read-only at /weights
-(https://huggingface.co/lucaslim/rc-mock-smolvla-ft). For local development only, set
+(https://huggingface.co/lucaslim/rc-mock-smolvla-ft), including the SmolVLM2 backbone it loads by
+hub id, bundled as an offline hub cache at /weights/hub-cache. For local development only, set
 RC_ALLOW_BASE_MODEL_FALLBACK=1 to download the public base model instead.
 
 Maps wrist/left/right cameras to SmolVLA image slots, passes the instruction and joint
@@ -23,7 +24,12 @@ from PIL import Image
 
 from rc_sdk.policy import Policy
 
-WEIGHTS_DIR = Path("/weights")
+WEIGHTS_DIR = Path(os.environ.get("RC_WEIGHTS_DIR") or "/weights")
+# SmolVLA loads its SmolVLM2 backbone and tokenizer by hub id (config.json vlm_model_name). The judged run is
+# offline with no organizer base models, so the model repo ships them as a hub cache at /weights/hub-cache.
+# Point the cache there before lerobot/transformers load.
+if (WEIGHTS_DIR / "hub-cache").is_dir():
+    os.environ["HF_HUB_CACHE"] = str(WEIGHTS_DIR / "hub-cache")
 MODEL_ID = "lerobot/smolvla_base"
 # Camera slots named by the smolvla_base config (input_features).
 CAMERA_KEYS = (
